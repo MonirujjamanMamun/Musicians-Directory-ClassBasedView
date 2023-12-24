@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1 class="text-center my-3">Are you sure to delete Album</h1>
+<form method="post" style="width: 50%; margin:auto">
+    {%csrf_token%}
+    <div class="text-center pb-5">
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </div>
+</form>
+{% endblock content %}

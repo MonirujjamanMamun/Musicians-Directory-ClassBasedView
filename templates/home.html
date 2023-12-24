@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='container mx-auto mt-3'>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Album Rating</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release Date</th>
+        {% if user.is_authenticated %}
+        <th scope="col">Actions</th>
+        {%endif%}
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat in data %}
+      <tr>
+        <th scope="row">{{cat.id}}</th>
+        {% if user.is_authenticated %}
+        <td><a class='text-decoration-none text-black' href="{% url "edit_musicians" cat.musician.id %}">{{cat.musician.first_name}} {{cat.musician.last_name}}</a></td>
+        {% else %}
+        <td>{{cat.musician.first_name}} {{cat.musician.last_name}}</td>
+        {% endif %}
+        <td>{{cat.musician.email}}</td>
+        <td>{{cat.rating}}</td>
+        <td>{{cat.musician.instulment_type}}</td>
+        <td>{{cat.name}}</td>
+        <td>{{cat.release}}</td>
+        {% if user.is_authenticated %}
+        <td class='d-flex'>
+          <a class='btn btn-primary me-1' href="{% url "add_edit" cat.id %}">Edit</a> 
+          <a class='btn btn-danger' href="{% url "add_delete" cat.id %}">Delete</a>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
